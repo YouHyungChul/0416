@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            position: relative;
+        }
+        #container{
+            width: 700px;
+            height: 600px;
+            background: red;
+            position: absolute;
+        }
+        #lb{
+            position: absolute;
+            top: 130px;
+            left: 100px;
+        }
+        #rb{
+            position: absolute;
+            top: 130px;
+            left: 530px;
+        }
+        #indicater{
+            width: 200px;
+            height: 100px;
+            position: absolute;
+            top: 50px;
+            left: 250px;
+            background: brown;
+        }
+    </style>
+    <script src="../Day-15/DateDiv.js"></script>
+    <script>
+        var container; //컨테이너
+        var indicater; // 현재 년,월 표기하는 div
+        var lb, rb; // 버튼
+        var datediv; // 각각의 div
+        var ddArray = []; //각 div 담은 배열
+        var d = new Date();
+        var aa; //현재 년
+        var bb; //현재 월
+        var cc; // 현재 일
+
+        window.addEventListener("load", function(){
+            container = document.getElementById("container");
+            indicater = document.getElementById("indicater");
+            createDate();
+            
+            setInterval(indiData,100);
+            eachDiv();
+        });
+
+        function eachDiv(){
+            
+        }
+
+        function createDate(){
+            // container,width,height,x,y
+            for(var a=0; a<6; a++){
+                for(var i=0; i<7; i++){
+                datediv = new DateDiv(container,80,45,(i*80+10)+(i*10+28),200+(a*50)+(a*10+28));
+                ddArray.push(datediv);
+                
+                }
+            }
+            
+        }
+
+        function indiData(){
+            aa = d.getFullYear();
+            bb = d.getMonth();
+            cc = d.getDate();
+            var str ="";
+           str += aa;
+           str += " . "
+           str +=bb+1 ;
+
+           if(d.getMonth>12){
+               d.setFullYear(d.getFullYear()+1)
+           }
+           if(d.getMonth<1){
+               d.setFullYear(d.getFullYear()-1)
+           }
+            indicater.innerText = str;
+        }
+
+        function moveL(){
+            d.setMonth(d.getMonth()-1);
+            // document.write(d.getDate());  = document.write(cc);
+        }
+        function moveR(){
+            d.setMonth(d.getMonth()+1); 
+        }   
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div id="indicater"></div>
+        <button id="lb" onclick="moveL()">왼쪽</button>
+        <button id="rb" onclick="moveR()">오른쪽</button>
+    </div>
+</body>
+</html>

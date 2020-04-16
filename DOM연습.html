@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,td{
+            border:1px solid red;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function(){
+            //문서내의 ch를 체크되어 있게 처리하고 싶다.
+            document.getElementById("ch");
+            ch.checked=true;
+            document.getElementById("txt");
+            txt.value = "you";
+            document.getElementById("r");
+            r.checked=true;
+            var sel = document.getElementById("sel");
+            sel.options[1].selected = true;
+            sel.multiple = true;
+            //점 뒤에 올수 있는것은? 단 두가지다~ 왜냐면 객체란 변수와 함수를
+            // 포함한 단위니까!! 하지만 어떤 변수와 함수를 보유한지는 체크박스를
+            // 정의한 사람만이 알고 있다.. 따라서 남한테 물어보지 말고 문서를 참고하자!!
+
+            //동적으로 테이블을 생성하여 2층 3호수 아파트를 표현!!
+            // DOM을 생성하여 테이블을 조합해본다!!
+            // 개발자가 원하는 시점에 DOM 객체를 생성하는 방법
+            var table = document.createElement("table");
+            // 위에서 만들어진 DOM은 <table></table> 의미한다!!
+            for(var a=0; a<2; a++){
+                var td=[];
+                var tr = document.createElement("tr");
+                for(var i=0; i<3; i++){
+                    td.push(document.createElement("td"));
+                    td[i].innerText= (a+1) +"0" + (i+1) + "호";
+                    //생성된 td는 tr에 부착해야 함
+                    tr.appendChild(td[i]);
+                } 
+                // 생성된 tr은 table에 부착해야함
+                table.appendChild(tr);
+            }
+            document.body.appendChild(table);
+
+
+            
+            // var rowlen = table.rows.length;
+            // var row = table.insertRow(rowlen-1);
+            // var cell1 = row.insertCell(0);
+            // var cell2 = row.insertCell(1);
+            // cell1.innerHTML = "NEW CELL1";
+            // cell2.innerHTML = "NEW CELL2";
+
+
+        });
+    </script>
+</head>
+<body>
+    <!-- 아래의 체크박스는 문서의 태그일 뿐이므로 프로그래밍 언어인 자바스크립트 등이 제어할 수 없다!!
+            따라서 현재 문서를 브라우저에서 실행시킬 때, 체크박스 태그에 대한
+            1:1 대응하는 Checkbox DOM이 메모리에 올라온다!!!
+            우리같은 개발자는 Checkbox를 제어하려면 Checkbox Dom설명서인
+            API Document를 참조 (Reference)해서 원하는데로 제어하면 된다잉 -->
+    <input id="ch" type="checkbox"/>
+    <input id="txt" type="text"/>
+    <input type="radio" id="r"/>
+
+    <select id="sel">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
+</body>
+</html>

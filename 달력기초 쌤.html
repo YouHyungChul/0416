@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #container {
+        width: 300px;
+        height: 600px;
+        background: yellow;
+        overflow: scroll;
+    }
+    td{
+        font-size: 9pt;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var sel_yy,sel_mth;
+    var container;
+    var days=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+    
+    window.addEventListener("load",function(){
+        container=document.getElementById("container");
+        sel_yy=document.getElementById("sel_yy");
+        sel_mth=document.getElementById("sel_mth");
+        
+        // 2020년 부터 1930년대까지 출력
+        // 년도 선택이라는 옵션도 나오게.
+        
+        sel_yy.add(createOption("년도 선택",""));
+
+        for(var i=2020; i>=1930; i--) {
+            // var op = document.createElement("option"); //option DOM 객체 생성!
+            // op.text=i;
+            // op.value=i;
+            // // 부모 컨테이너인 sel_yy 에 부착
+            // sel_yy.add(op);
+            sel_yy.add(createOption(i,i));
+        }
+
+        // 1월 ~ 12월까지 채워 넣기.
+        sel_mth.add(createOption("월 선택",""));
+        for(var i=1;i<=12;i++) {
+            sel_mth.add(createOption(i,i));
+        }
+    });
+
+    // 현재 선택한 연,월에 해당하는 날짜들을 출력한다
+    // 2월의 경우 28,29 될 수 있다. 큰달 31일까지, 작은달 30일까지
+    // 결국 우리가 알아야 하는 것은 해당 월의 끝 일수가 몇일까지 인지
+    // 알아맞춰야 한다.
+    function printDate() { 
+        var d= new Date();
+        // 날짜 객체를 조작해본다.
+        // d.setDate(1); //요일이 아닌 일을  1일(첫일)로 해보자!
+        // 2020년 4월 1일 일것이다.
+        // 월은 출력시만 +1 해주자.
+
+        d.setFullYear(sel_yy.value); //선택상자의 년도값.
+        d.setMonth(sel_mth.value); 
+        d.setDate(0); //일수를 0으로 할 경우 이전달의 마지막
+        // 날을 의미하므로, 그달이 몇일까지 있는지 알아맞출수 있다.
+
+        var lastDate = d.getDate();// 반복문의 범위!
+
+        var str=""
+
+        str+="<table width=\"100%\" border=\"1px\">";
+            str+="<tr>";
+                str+="<td>일</td>";
+                str+="<td>요일</td>";
+                str+="<td>메모</td>";
+            str+="</tr>";
+        for (var i=1;i<=lastDate;i++){
+            // 날짜 객체에 일수를 대입한다.
+            d.setDate(i);
+
+            if(d.getDay()!=0) { //평일
+                str+="<tr>";
+            } else { //일요일
+                str+="<tr bgColor='orange'>";
+            }
+
+                str+="<td>"+d.getDate()+"</td>";
+                str+="<td>"+days[d.getDay()]+"</td>";
+                str+="<td onClick=\"setInfo(this)\"></td>";
+            str+="</tr>";
+            
+        }
+        str+="</table>";
+
+        /*
+        alert("선택한 월은 "+lastDate+"일까지 있넹");
+
+        str+="년도는 "+d.getFullYear()+" 년<br>";
+        str+="월은 "+(d.getMonth()+1)+" 월<br>";
+        str+="일은 "+d.getDate()+" 일<br>";
+        str+="오늘은 "+d.getDay()+" 요일<br>";
+        */
+        container.innerHTML=str;
+    }
+
+    // 선택한 td안에 원하는 텍스트 입력해넣기!
+    function setInfo(obj) {
+        obj.style.background="yellowgreen";
+        obj.innerHTML=prompt("원하시는 메시지 입력");
+    }
+    
+
+
+</script>
+</head>
+<body>
+    <select id="sel_yy"></select>
+    <select id="sel_mth"></select>
+    <button onClick="printDate()">data출력</button>
+    <div id="container"></div>
+</body>
+</html>

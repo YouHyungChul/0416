@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    //Date 객체 다룰때 주의점!!!
+    // 대부분의 프로그래밍 언어에서는 월(1월~12월)은 0부터 시작!!
+    // 또한 요일도 0부터 시작한다.
+    var days=["일","월","화","수","목","금","토"]
+    var d = new Date();
+    d.setFullYear(2001); // 2001년으로 지정
+    d.setMonth(4); 
+    d.setDate(5); 
+
+    //월 출력시에는 언제나 1을 더하자!!!
+    document.write(d.getMonth()+1);
+    //몇일인지 추력
+    document.write(d.getDate());
+    document.write(days[d.getDay()]);
+
+
+    // 자바스크립트의 주요 내장객체 중 날짜 객체인 Date Object를 학습한다!!
+    // 이 객체는 우리가 정의한 것이 아니라, 이미 자바스크립트 언어 자체에서
+    // 사용비중이 높을만한것들을 내장객체로
+    // 정의하여 프로그래머에게 제공된다. 이때, 개발자는 자신이 정의한 것이 아닌
+    // 남이 준것이므로 구성내용이 어떻게 되어있는지 알수가 없다!!!
+    // 따라서 객체를 정의한 사람이 제공하는 API Document를 보아야 한다!!!
+    // 근데 잘 보는 knowhow~~가 있다
+    // 어떤 대상이 객체라면, 보지 않고도 예측가능한것은 바로 객체는??
+    // 변수와 함수로 이루어져있다~ 따라서 아래의 코드를 작성할것을 예상하자
+    // 객체.변수   or   객체.함수
+
+
+    // function myWatch(){
+    //     var d = new Date();  // 날짜 객체의 인스턴스 생성!!!
+    //     document.write(d); //객체 자체를 출력하면, 이 객체가 자동으로
+    //                                 // String 화되어 출력된다.
+    //     // Date 객체 생성시 개발자가 생성자에 아무런 매개변수 즉 인수를
+    //     // 넘기지 않으면 디폴트는 현재 날짜정보로 구성된다!!
+    // }
+    // setInterval(myWatch,1000);
+
+
+
+</script>
+</head>
+<body>
+    
+</body>
+</html>
